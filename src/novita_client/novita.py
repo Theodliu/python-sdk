@@ -749,7 +749,7 @@ class NovitaClient:
         resquest = Img2PromptRequest(image_file=input_image)
         return Img2PromptResponse.from_dict(self._post('/v3/img2prompt', resquest.to_dict()))
 
-    def merge_face(self, image: InputImage, face_image: InputImage, response_image_type=None, enterprise_plan=None) -> MergeFaceResponse:
+    def merge_face(self, image: InputImage, face_image: InputImage, response_image_type: str =None, enterprise_plan: bool=None) -> MergeFaceResponse:
         input_image = input_image_to_base64(image)
         face_image = input_image_to_base64(face_image)
         request = MergeFaceRequest(image_file=input_image, face_image_file=face_image)
@@ -762,6 +762,14 @@ class NovitaClient:
         else:
             request.set_enterprise_plan(False)
         return MergeFaceResponse.from_dict(self._post('/v3/merge-face', request.to_dict()))
+
+    def face_fusion(self, face_image: InputImage, image: InputImage, face_enhance: bool = True, response_image_type: str = None) -> FaceFusionResponse:
+        input_image = input_image_to_base64(image)
+        face = input_image_to_base64(face_image)
+        request = FaceFusionRequest(face_image_file=face, image_file=input_image, face_enhance=face_enhance, response_image_type=response_image_type)
+        return FaceFusionResponse.from_dict(self._post('/v3beta/facefusion', request.to_dict()))
+        
+
 
     def lcm_txt2img(self, prompt: str, width=None, height=None, steps=None, guidance_scale=None, image_num=None) -> LCMTxt2ImgResponse:
         req = LCMTxt2ImgRequest(prompt=prompt)

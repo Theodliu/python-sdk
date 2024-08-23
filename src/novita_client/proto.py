@@ -909,6 +909,20 @@ class MergeFaceResponse(JSONe):
     image_file: str
     image_type: str
 
+# --------------- Face Fusion --------------- 
+@dataclass
+class FaceFusionRequest(JSONe):
+    face_image_file: str
+    image_file: str
+    face_enhance: bool = True
+    response_image_type: str = "png"
+
+@dataclass
+class FaceFusionResponse(JSONe):
+    image_file: str
+    image_type: str
+
+
 # --------------- LCM Txt2Img ---------------
 
 
@@ -1415,7 +1429,7 @@ class InstantStyleRequest(JSONe):
     def set_enterprise_plan(self, enterprise_plan: bool):
         self.extra.setdefault('enterprise_plan', {})
         self.extra['enterprise_plan']['enabled'] = enterprise_plan
-    
+
 @dataclass
 class InstantStyleResponse(JSONe):
     task_id: str
