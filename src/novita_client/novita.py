@@ -1287,6 +1287,14 @@ class NovitaClient:
         res = self._get('/v3/model', params=parameters)
         return MoodelsResponseV3.from_dict(res)
 
+    def flux_txt2img(self, prompt:str,height:int,width:int,steps:int,seed:int,image_num:int,response_image_type: str=None) -> FluxTxt2ImgResponse:
+        req = FluxTxt2ImgRequest(prompt=prompt,height=height,width=width,steps=steps,seed=seed,image_num=image_num,response_image_type=response_image_type)
+        return FluxTxt2ImgResponse.from_dict(self._post('/v3beta/flux-1-dev', req.to_dict()))
+
+
+
+
+
     def models_v3(self, refresh=False) -> ModelListV3:
         if self._model_list_cache_v3 is None or len(self._model_list_cache_v3) == 0 or refresh:
             visibilities = ["public", "private"]

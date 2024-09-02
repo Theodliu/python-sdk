@@ -1564,6 +1564,34 @@ class Txt2ImgV3Response(JSONe):
     task_id: str
 
 
+#   -------------- FluxTxt2Img ---------------
+@dataclass
+class FluxTxt2ImgImage(JSONe):
+    image_url: str
+    image_type: str
+    image_url_ttl: int
+
+@dataclass
+class FluxTxt2ImgTask(JSONe):
+    task_id: str
+
+@dataclass
+class FluxTxt2ImgRequest(JSONe):
+    prompt: str
+    width: int
+    height: int
+    image_num: int
+    seed: Optional[int] = None
+    steps: Optional[int] = None
+    response_image_type: Optional[str] = None
+
+@dataclass
+class FluxTxt2ImgResponse(JSONe):
+    images: List[FluxTxt2ImgImage]
+    task: FluxTxt2ImgTask
+
+
+
 # --------------- Inpainting ---------------
 @dataclass
 class InpaintingLoRA(JSONe):
