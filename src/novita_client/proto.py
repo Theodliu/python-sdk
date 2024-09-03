@@ -1591,6 +1591,29 @@ class FluxTxt2ImgResponse(JSONe):
     task: FluxTxt2ImgTask
 
 
+# --------------- FluxImg2Img ---------------
+@dataclass
+class FluxImg2ImgRequest(JSONe):
+    prompt : str
+    input_image : str
+    image_num : int
+    steps : int
+    width : int
+    height : int
+    seed : int
+    sampler_name : str
+    scheduler : str = None
+    strength : float = None
+    response_image_type : str = None
+
+    def set_image_type(self, image_type: str):
+        self.response_image_type = image_type
+
+@dataclass
+class FluxImg2ImgResponse(JSONe):
+    images: List[FluxTxt2ImgImage]
+    task: FluxTxt2ImgTask
+
 
 # --------------- Inpainting ---------------
 @dataclass

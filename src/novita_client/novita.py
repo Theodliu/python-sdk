@@ -1291,7 +1291,10 @@ class NovitaClient:
         req = FluxTxt2ImgRequest(prompt=prompt,height=height,width=width,steps=steps,seed=seed,image_num=image_num,response_image_type=response_image_type)
         return FluxTxt2ImgResponse.from_dict(self._post('/v3beta/flux-1-dev', req.to_dict()))
 
-
+    def flux_img2img(self, input_image: InputImage, prompt: str, height: int, width: int, steps: int, seed: int, image_num: int, sampler_name: str = None, scheduler: str = None, strength: float = None, response_image_type: str = None) -> FluxImg2ImgResponse:
+        image_b64 = input_image_to_base64(input_image)
+        req = FluxImg2ImgRequest(input_image=image_b64, prompt=prompt, height=height, width=width, steps=steps, seed=seed, image_num=image_num, response_image_type=response_image_type, sampler_name=sampler_name, scheduler=scheduler, strength=strength)
+        return FluxImg2ImgResponse.from_dict(self._post('/v3beta/flux-1-dev-img2img', req.to_dict()))
 
 
 
